@@ -16,7 +16,8 @@ class HandleRequests(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(bytes("<html><head><title>First python Application</title></head><body style='color: #333; margin-top: 30px;'><center><h2>Welcome to our first Python application.</center></h2></body></html>", "utf-8"))
         self.wfile.close
-        REQUEST_LAST_EXECUTED.set(time.time())
+        REQUEST_LAST_EXECUTED.set_to_current_time()
+        #REQUEST_LAST_EXECUTED.set(time.time())
         #REQUEST_IN_PROGRESS.dec() 
 
 if __name__ == "__main__":
