@@ -1,12 +1,14 @@
 import http.server
 import time
-from prometheus_client import start_http_server, Histogram
+from prometheus_client import start_http_server, Histogram, Gauge
 
-REQUEST_LATENCY_TIME= Histogram('request_latency_time','Response latency in seconds')
+REQUEST_LATENCY_TIME= Histogram('request_latency_time','Response latency in seconds', buckets=[0.0001,0.005,0.07,1,1.5,2,2.7])
+REQUEST_IN_PROGRESS = Gauge('reuests_inprogress', "Number of Live Request on Application")
 
 class HandleRequests(http.server.BaseHTTPRequestHandler):
 
     @REQUEST_LATENCY_TIME.time()
+    @REQUEST_IN_PROGRESS.track_inprogress()
     def do_GET(self):
         #startTime = time.time()
         self.send_response(200)
