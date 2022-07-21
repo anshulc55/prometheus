@@ -1,5 +1,5 @@
 from flask import Flask, request, Response
-from prometheus_clinet import Counter, generate_latest
+from prometheus_client import Counter, generate_latest
 
 REQUEST_COUNT = Counter("app_request_counter", "Total Number of Requests made of Application")
 
