@@ -12,7 +12,7 @@ def hello_team():
 
 @app.route("/metrics")
 def metrics():
-    return Response(generate_latest(), 200, mimetype="plain/text")
+    return Response(generate_latest(), 200, mimetype="text/plain")
 
 if __name__ == "__main__":
     app.run(hostname="0.0.0.0", port=5001)
