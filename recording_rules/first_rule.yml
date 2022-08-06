@@ -6,3 +6,12 @@ groups:
 
     - record: job:non_idle_cpu_seconds:avg_per_minute
       expr: avg without(cpu, mode)(rate (node_cpu_seconds_total{mode!="idle"}[1m]))
+
+
+  - name: memory_computation
+    rules:
+    - record: job:idle_memory_seconds
+      expr: (node_memory_MemFree_bytes/node_memory_MemTotal_bytes)*100
+
+    - record: job:non_idle_memory_seconds
+      expr: (1-(node_memory_MemFree_bytes/node_memory_MemTotal_bytes))*100
