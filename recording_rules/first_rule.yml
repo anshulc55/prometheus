@@ -1,0 +1,5 @@
+groups:
+  - name: cpu_computation
+    rules:
+    - record: job:idle_cpu_seconds:avg_per_minute
+      expr: avg without(cpu)(rate (node_cpu_seconds_total{mode="idle"}[1m]))
