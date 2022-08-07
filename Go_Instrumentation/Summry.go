@@ -42,7 +42,7 @@ func startMyApp() {
 		vars := mux.Vars(r)
 		name := vars["name"]
 		greetings := fmt.Sprintf("Hi Buddy, your name is %s :)", name)
-		time.Sleep(5 * time.Second)
+		time.Sleep(3 * time.Second)
 		rw.Write([]byte(greetings))
 	}).Methods("GET")
 
