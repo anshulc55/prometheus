@@ -21,3 +21,6 @@ groups:
     - alert: node_exporter_status
       expr: up{job="node_exporter"} == 0
       for: 2m
+
+    - record: job:go_app_resposponse_latency_seconds:rate_1m
+      expr: rate(go_app_response_latency_seconds_sum{path="/user/{name}"}[1m]) / rate(go_app_response_latency_seconds_count{path="/user/{name}"}[1m])
