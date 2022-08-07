@@ -1,0 +1,14 @@
+route:
+  receiver: admin
+
+receivers:
+  - name: admin
+    email_config:
+      - to : "anshulc55@gmail.com"
+        from: "steasybix@gmail.com"
+        smarthost: smtp.gmail.com:587
+        auth_username: "steasybix@gmail.com"
+        auth_identity: "steasybix@gmail.com"
+        auth_password: "16-digit password"
+
+         
