@@ -26,13 +26,13 @@ groups:
       expr: rate(go_app_response_latency_seconds_sum{path=~"/user/.+"}[1m]) / rate(go_app_response_latency_seconds_count{path=~"/user/.+"}[1m])
 
     - alert: AppLatency_Above5
-      expr: job:go_app_resposponse_latency_seconds:rate_1m  >=5
+      expr: job:go_app_resposponse_latency_seconds:rate_1m  >= 5
       for: 2m
       labels:
         sevirity: CRITICAL
 
     - alert: AppLatency_Above2_Less5
-      expr: 2=< job:go_app_resposponse_latency_seconds:rate_1m  <=5
+      expr: 2 =< job:go_app_resposponse_latency_seconds:rate_1m  <= 5
       for: 2m
       labels:
         sevirity: Warning
