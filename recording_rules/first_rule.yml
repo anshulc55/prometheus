@@ -36,3 +36,6 @@ groups:
       for: 2m
       labels:
         sevirity: Warning
+      annotations:
+        summary: "Go App is not running well, and APIs having latency between 2-5 seconds."
+        description: "Hi team, this alert sevirity is - {{ $labels.sevirity }}, Alert got raised for instance {{ $labels.instance }}"
