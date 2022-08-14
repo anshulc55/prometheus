@@ -1,0 +1,57 @@
+groups:
+  - name: python-app-rules
+    rules:
+
+    # Python Application Alerts
+
+    - record: job:app_request_latency_seconds:rate1m
+      expr: rate(app_response_latency_seconds_sum[1m]) / rate(app_response_latency_seconds_count[1m])
+
+    - alert: AppLatencyAbove2sec
+      expr: 2 < job:app_request_latency_seconds:rate1m < 5
+      for: 2m
+      labels:
+        severity: warning
+        app_type: python
+      annotations:
+        summary: 'Python app latency is going high'
+        description: 'App latency of instance {{ $labels.instance }} of job {{ $labels.job }} is {{ $value }} for more than 5 Seconds.'
+
+    - alert: AppLatencyAbove5sec
+      expr: job:app_request_latency_seconds:rate1m >= 5
+      for: 2m
+      labels:
+        severity: critical
+        app_type: python
+      annotations:
+        summary: 'Python app latency is over 5 seconds.'
+        description: 'App latency of instance {{ $labels.instance }} of job {{ $labels.job }} is {{ $value }} for more than 5 Seconds.'
+
+
+  - name: go-app-rules
+    rules:
+
+    # Go Application Alerts
+
+    - record: job:go_app_request_latency_seconds:rate1m
+      expr: rate(go_app_response_latency_seconds[1m]) / rate(go_app_response_latency_seconds[1m])
+
+    - alert: GoAppLatencyAbove2sec
+      expr: 2 < job:go_app_request_latency_seconds:rate1m < 5
+      for: 2m
+      labels:
+        severity: warning
+        app_type: go
+      annotations:
+        summary: 'Go app latency is unusual'
+        description: 'App latency of instance {{ $labels.instance }} of job {{ $labels.job }} is {{ $value }} for more than 5 minutes.'
+
+    - alert: GoAppLatencyAbove5sec
+      expr: job:go_app_request_latency_seconds:rate1m >= 5
+      for: 2m
+      labels:
+        severity: critical
+        app_type: go
+      annotations:
+        summary: 'Go app latency is over 5 seconds.'
+        description: 'App latency of instance {{ $labels.instance }} of job {{ $labels.job }} is {{ $value }} for more than 5 minutes.'

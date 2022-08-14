@@ -1,0 +1,83 @@
+groups:
+  - name: linux-rules
+    rules:
+
+    - alert: NodeExporterDown
+      expr: up{job="node_exporter"} == 0
+      for: 2m
+      labels:
+        severity: critical
+        app_type: linux
+        category: server
+      annotations:
+        summary: "Node Exporter is down"
+        description: "Node Exporter is down for more than 2 minutes"
+
+    - record: job:node_memory_Mem_bytes:available
+      expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100
+      
+    - alert: NodeMemoryUsageAbove60%
+      expr: 60 < (100 - job:node_memory_Mem_bytes:available) < 75
+      for: 2m
+      labels:
+        severity: warning
+        app_type: linux
+        category: memory
+      annotations:
+        summary: "Node memory usage is going high"
+        description: "Node memory for instance {{ $labels.instance }} has reached {{ $value }}%"
+
+    - alert: NodeMemoryUsageAbove75%
+      expr: (100 - job:node_memory_Mem_bytes:available) >= 75
+      for: 2m
+      labels:
+        severity: critical
+        app_type: linux
+        category: memory
+      annotations:
+        summary: "Node memory usage is very HIGH"
+        description: "Node memory for instance {{ $labels.instance }} has reached {{ $value }}%"
+
+    - alert: NodeCPUUsageHigh
+      expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[1m])) * 100) > 80
+      for: 2m
+      labels:
+        severity: critical
+        app_type: linux
+        category: cpu
+      annotations:
+        summary: "Node CPU usage is HIGH"
+        description: "CPU load for instance {{ $labels.instance }} has reached {{ $value }}%"
+
+    - alert: NodeCPU_0_High
+      expr: 100 - (avg by(instance, cpu) (irate(node_cpu_seconds_total{mode="idle", cpu="0"}[1m])) * 100) > 80
+      for: 2m
+      labels:
+        severity: critical
+        app_type: linux
+        category: cpu
+      annotations:
+        summary: "Node CPU_0 usage is HIGH"
+        description: "CPU_0 load for instance {{ $labels.instance }} has reached {{ $value }}%"
+
+    - alert: NodeCPU_1_High
+      expr: 100 - (avg by(instance, cpu) (irate(node_cpu_seconds_total{mode="idle", cpu="1"}[1m])) * 100) > 80
+      for: 2m
+      labels:
+        severity: critical
+        app_type: linux
+        category: cpu
+      annotations:
+        summary: "Node CPU_1 usage is HIGH"
+        description: "CPU_1 load for instance {{ $labels.instance }} has reached {{ $value }}%"
+
+    - alert: NodeFreeDiskSpaceLess30%
+      expr: (sum by (instance) (node_filesystem_free_bytes) / sum by (instance) (node_filesystem_size_bytes)) * 100 < 30
+      for: 2m
+      labels:
+        severity: warning
+        app_type: linux
+        category: disk
+      annotations:
+        summary: "Node free disk space is running out"
+        description: "Node disk is going to full (< 30% left)\n  Current free disk space is {{ $value }}"

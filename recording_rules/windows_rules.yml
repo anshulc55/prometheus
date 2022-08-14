@@ -1,0 +1,61 @@
+groups:
+  - name: windows-rules
+    rules:
+
+    - alert: WMIExporterDown
+      expr: up{job="wmi_exporter"} == 0
+      for: 2m
+      labels:
+        severity: critical
+        app_type: windows
+        category: server
+      annotations:
+        summary: "WMI Exporter is down"
+        description: "WMI Exporter is down for more than 2 minutes"
+
+    - record: job:wmi_physical_memory_bytes:free
+      expr: (wmi_os_physical_memory_free_bytes / wmi_cs_physical_memory_bytes) * 100
+
+    - alert: WindowsMemoryUsageAbove60%
+      expr: 60 < (100 - job:wmi_physical_memory_bytes:free) < 75
+      for: 2m
+      labels:
+        severity: warning
+        app_type: windows
+        category: memory
+      annotations:
+        summary: "Windows memory usage is going high"
+        description: "Windows memory for instance {{ $labels.instance }} has left only {{ $value }}%"
+
+    - alert: WindowsMemoryUsageAbove75%
+      expr: (100 - job:wmi_physical_memory_bytes:free) >= 75
+      for: 2m
+      labels:
+        severity: critical
+        app_type: windows
+        category: memory
+      annotations:
+        summary: "Windows memory usage is HIGH"
+        description: "Windows memory for instance {{ $labels.instance }} has left only {{ $value }}%"
+
+    - alert: WindowsCPUUsageHigh
+      expr: 100 - (avg by (instance) (rate(wmi_cpu_time_total{mode="idle"}[1m])) * 100) > 80
+      for: 2m
+      labels:
+        severity: critical
+        app_type: windows
+        category: cpu
+      annotations:
+        summary: "Windows CPU usage is HIGH"
+        description: "CPU load for instance {{ $labels.instance }} has reached {{ $value }}"
+
+    - alert: WindowsDiskSpaceUsageAbove80%
+      expr: 100 - ((wmi_logical_disk_free_bytes / wmi_logical_disk_size_bytes) * 100) > 80
+      for: 2m
+      labels:
+        severity: critical
+        app_type: windows
+        category: disk
+      annotations:
+        summary: "Windows disk space usage is HIGH"
+        description: "Windows disk usage is more than 80% with value = {{ $value }}"
