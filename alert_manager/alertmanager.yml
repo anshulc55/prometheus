@@ -1,14 +1,131 @@
+global:
+  smtp_from: "steasybix@gmail.com"
+  smtp_smarthost: smtp.gmail.com:587
+  smtp_auth_username: "steasybix@gmail.com"
+  smtp_auth_identity: "steasybix@gmail.com"
+  smtp_auth_password: "16-digit password"
+
 route:
+  # Default Receiver, Fallback Receiver 
   receiver: admin
+  routes:
+    # Route for OS Alerts
+    - match_re:
+        app_type: (linux|windows)
+      # Fallback Receiver for OS Alerts
+      receiver: abc_sol-admin
+      routes:
+        - match: 
+            app_type: linux 
+          # Fallback receiver for Linux Alerts
+          receiver: abc_sol_linux-admin
+          routes:
+            - match: 
+                severity: critical
+              receiver: abc_sol_linux-manager
+            - match: 
+                severity: warning
+              receiver: abc_sol_linux-teamlead
+
+        - match: 
+            app_type: windows 
+          # Fallback receiver for Windows Alerts
+          receiver: abc_sol_windows-admin
+          routes:
+            - match: 
+                severity: critical
+              receiver: abc_sol_windows-manager
+            - match: 
+                severity: warning
+              receiver: abc_sol_windows-teamlead
+
+    # Route for Application Alerts
+    - match_re:
+        app_type: (python|go)
+      # Fallback Receiver for App Alerts
+      receiver: xyz_sol-admin
+      routes:
+        - match: 
+            app_type: python 
+          # Fallback receiver for App Alerts
+          receiver: xyz_sol_python-admin
+          routes:
+            - match: 
+                severity: critical
+              receiver: xyz_sol_python-manager
+            - match: 
+                severity: warning
+              receiver: xyz_sol_python-teamlead
+
+        - match: 
+            app_type: go 
+          # Fallback receiver for App Alerts
+          receiver: xyz_sol_go-admin  
+          routes:
+            - match: 
+                severity: critical
+              receiver: xyz_sol_go-manager
+            - match: 
+                severity: warning
+              receiver: xyz_sol_go-teamlead
 
 receivers:
   - name: admin
     email_config:
       - to : "anshulc55@gmail.com"
-        from: "steasybix@gmail.com"
-        smarthost: smtp.gmail.com:587
-        auth_username: "steasybix@gmail.com"
-        auth_identity: "steasybix@gmail.com"
-        auth_password: "16-digit password"
 
-         
+  - name: abc_sol-admin
+    email_config:
+      - to : "admin@abcsolution.com"
+
+  - name: abc_sol_linux-admin
+    email_config:
+      - to : "linux.admin@abcsolution.com"
+
+  - name: abc_sol_linux-manager
+    email_config:
+      - to : "linux.manager@abcsolution.com"
+
+  - name: abc_sol_linux-teamlead
+    email_config:
+      - to : "linux.teamlead@abcsolution.com"
+
+  - name: abc_sol_windows-admin
+    email_config:
+      - to : "windows.admin@abcsolution.com"
+
+  - name: abc_sol_windows-manager
+    email_config:
+      - to : "windows.manager@abcsolution.com"
+
+  - name: abc_sol_windows-teamlead
+    email_config:
+      - to : "windows.teamlead@abcsolution.com"
+
+  - name: xyz_sol-admin
+    email_config:
+      - to : "admin@xyzsolution.com"
+
+  - name: xyz_sol_python-admin
+    email_config:
+      - to : "python.admin@xyzsolution.com"
+
+  - name: xyz_sol_python-manager
+    email_config:
+      - to : "python.manager@xyzsolution.com"
+
+  - name: xyz_sol_python-teamlead
+    email_config:
+      - to : "python.teamlead@xyzsolution.com"
+
+  - name: xyz_sol_go-admin
+    email_config:
+      - to : "go.admin@xyzsolution.com"
+
+  - name: xyz_sol_go-manager
+    email_config:
+      - to : "go.manager@xyzsolution.com"
+
+  - name: xyz_sol_go-teamlead
+    email_config:
+      - to : "go.teamlead@xyzsolution.com"
