@@ -71,61 +71,61 @@ route:
 
 receivers:
   - name: admin
-    email_config:
+    email_configs:
       - to : "anshulc55@gmail.com"
 
   - name: abc_sol-admin
-    email_config:
+    email_configs:
       - to : "admin@abcsolution.com"
 
   - name: abc_sol_linux-admin
-    email_config:
+    email_configs:
       - to : "linux.admin@abcsolution.com"
 
   - name: abc_sol_linux-manager
-    email_config:
+    email_configs:
       - to : "linux.manager@abcsolution.com"
 
   - name: abc_sol_linux-teamlead
-    email_config:
+    email_configs:
       - to : "linux.teamlead@abcsolution.com"
 
   - name: abc_sol_windows-admin
-    email_config:
+    email_configs:
       - to : "windows.admin@abcsolution.com"
 
   - name: abc_sol_windows-manager
-    email_config:
+    email_configs:
       - to : "windows.manager@abcsolution.com"
 
   - name: abc_sol_windows-teamlead
-    email_config:
+    email_configs:
       - to : "windows.teamlead@abcsolution.com"
 
   - name: xyz_sol-admin
-    email_config:
+    email_configs:
       - to : "admin@xyzsolution.com"
 
   - name: xyz_sol_python-admin
-    email_config:
+    email_configs:
       - to : "python.admin@xyzsolution.com"
 
   - name: xyz_sol_python-manager
-    email_config:
+    email_configs:
       - to : "python.manager@xyzsolution.com"
 
   - name: xyz_sol_python-teamlead
-    email_config:
+    email_configs:
       - to : "python.teamlead@xyzsolution.com"
 
   - name: xyz_sol_go-admin
-    email_config:
+    email_configs:
       - to : "go.admin@xyzsolution.com"
 
   - name: xyz_sol_go-manager
-    email_config:
+    email_configs:
       - to : "go.manager@xyzsolution.com"
 
   - name: xyz_sol_go-teamlead
-    email_config:
+    email_configs:
       - to : "go.teamlead@xyzsolution.com"
