@@ -24,9 +24,14 @@ route:
             - match: 
                 severity: critical
               receiver: abc_sol_linux-manager
+              continue: true
             - match: 
                 severity: warning
               receiver: abc_sol_linux-teamlead
+              continue: true
+            - match: 
+                category: cpu
+              receiver: abc_sol_linux-cpu
 
         - match: 
             app_type: windows 
@@ -90,6 +95,10 @@ receivers:
   - name: abc_sol_linux-teamlead
     email_configs:
       - to : "linux.teamlead@abcsolution.com"
+  
+  - name: abc_sol_linux-cpu
+    email_configs:
+      - to : "linux.teamcpu@abcsolution.com"
 
   - name: abc_sol_windows-admin
     email_configs:
