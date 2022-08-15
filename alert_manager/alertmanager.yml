@@ -8,6 +8,7 @@ global:
 route:
   # Default Receiver, Fallback Receiver 
   receiver: admin
+  group_by: ["category"]
   routes:
     # Route for OS Alerts
     - match_re:
