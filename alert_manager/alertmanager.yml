@@ -98,8 +98,9 @@ receivers:
       - to : "linux.teamlead@abcsolution.com"
   
   - name: abc_sol_linux-cpu
-    email_configs:
-      - to : "linux.teamcpu@abcsolution.com"
+    slack_configs:
+      - channel: "#prometheus"
+        api_url: "https://hooks.slack.com/services/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"
 
   - name: abc_sol_windows-admin
     email_configs:
