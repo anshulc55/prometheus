@@ -91,7 +91,7 @@ receivers:
   - name: abc_sol_linux-manager
     slack_configs:
       - channel: "#prometheus"
-        api_url: "https://hooks.slack.com/services/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"
+        api_url: "https://hooks.slack.com/services/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"
 
   - name: abc_sol_linux-teamlead
     email_configs:
