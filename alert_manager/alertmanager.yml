@@ -90,7 +90,7 @@ receivers:
 
   - name: abc_sol_linux-manager
     slack_configs:
-      - channel: "#prometheus1"
+      - channel: "prometheus1"
         api_url: "https://hooks.slack.com/services/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"
 
   - name: abc_sol_linux-teamlead
@@ -99,7 +99,7 @@ receivers:
   
   - name: abc_sol_linux-cpu
     slack_configs:
-      - channel: "#prometheus1"
+      - channel: "prometheus1"
         api_url: "https://hooks.slack.com/services/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"
 
   - name: abc_sol_windows-admin
