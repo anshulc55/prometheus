@@ -91,7 +91,7 @@ receivers:
   - name: abc_sol_linux-manager
     slack_configs:
       - channel: "#prometheus"
-        api_url: "https://hooks.slack.com/services/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"
+        api_url: "https://hooks.slack.com/services/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"
 
   - name: abc_sol_linux-teamlead
     email_configs:
@@ -100,7 +100,7 @@ receivers:
   - name: abc_sol_linux-cpu
     slack_configs:
       - channel: "#prometheus"
-        api_url: "https://hooks.slack.com/services/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"
+        api_url: "https://hooks.slack.com/services/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"
 
   - name: abc_sol_windows-admin
     email_configs:
