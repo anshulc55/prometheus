@@ -1,0 +1,56 @@
+# my global config
+global:
+  scrape_interval: 1s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 5s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+           - localhost:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "/root/prometehus/prometheus/recording_rules/first_rule.yml"
+   - "/root/prometehus/prometheus/recording_rules/linux_rules.yml"
+   - "/root/prometehus/prometheus/recording_rules/windows_rules.yml"
+   - "/root/prometehus/prometheus/recording_rules/App_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["localhost:9090"]
+  - job_name: "node_exporter"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+            - targets: ["localhost:9100","146.190.22.199:9100"]
+  - job_name: "custom_docker_app"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+            - targets: ["146.190.22.199:5001"]
+  - job_name: "go_app_3"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+            - targets: ["146.190.22.199:8000"]
+
+  - job_name: "blackbox_exporter"
+    static_configs:
+            - targets: ["178.62.224.102:9115"]
