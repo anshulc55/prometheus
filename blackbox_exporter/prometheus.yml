@@ -63,3 +63,10 @@ scrape_configs:
     params:
       module:
       - http_ipv4
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 178.62.224.102:9115
