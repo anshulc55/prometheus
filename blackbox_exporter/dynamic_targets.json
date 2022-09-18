@@ -5,7 +5,8 @@
       ],
       "labels": {
         "team": "pre-production",
-        "region": "APAC"
+        "region": "APAC",
+        "application": "server"
       }
     },
     {
