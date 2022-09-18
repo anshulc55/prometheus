@@ -3,3 +3,10 @@
   labels:
     team: "pre-production"
     region: "APAC"
+
+- targets:
+  - 146.190.22.199:9100
+  labels:
+    team: "production"
+    region: "US-East"
+    
