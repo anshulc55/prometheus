@@ -1,0 +1,5 @@
+- targets:
+  - localhost:9100
+  labels:
+    team: "pre-production"
+    region: "APAC"
