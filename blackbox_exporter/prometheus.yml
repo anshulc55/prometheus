@@ -34,6 +34,7 @@ scrape_configs:
     file_sd_configs:
     - files:
       - dynamic_targets.yml
+      - dynamic_targets.json
 
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
